@@ -8,6 +8,7 @@ Materiały do zajęć praktycznych z analizy danych okulograficznych (*eye-track
 
 * oczyszczać surowe dane z eye-trackera i wykrywać fiksacje oraz sakady,
 * wizualizować ruchy oczu (ścieżki wzroku, mapy cieplne) i analizować obszary zainteresowania (AOI),
+* rozumieć, czym jest widmo sygnału (transformata Fouriera) i jak działają filtry,
 * przetwarzać sygnał EEG: filtrować, wykrywać złe kanały, usuwać artefakty metodą ICA,
 * liczyć potencjały wywołane (ERP) i analizować oscylacje w dziedzinie czas–częstotliwość,
 * łączyć oba rodzaje danych i liczyć potencjały wywołane fiksacją (FRP).
@@ -25,7 +26,7 @@ Materiały do zajęć praktycznych z analizy danych okulograficznych (*eye-track
    > Możesz też po prostu kliknąć niebieski przycisk **Open in GitHub Codespaces** na górze tej strony.
 
 6. **Poczekaj na przygotowanie środowiska.** Przy pierwszym uruchomieniu trwa to ok. 3–5 minut: GitHub buduje kontener i instaluje pakiety. Kolejne uruchomienia zajmują kilkanaście sekund.
-7. W przeglądarce otworzy się **VS Code**. W panelu terminala zobaczysz, że w tle pobiera się zestaw danych EEG (ok. 1,6 GB). Nie czekaj na koniec – zacznij od notebooków 01 i 02, które go nie potrzebują.
+7. W przeglądarce otworzy się **VS Code**. W panelu terminala zobaczysz, że w tle pobiera się zestaw danych EEG (ok. 1,6 GB). Nie czekaj na koniec – zacznij od notebooków 01, 02 lub 06, które go nie potrzebują.
 8. W panelu plików po lewej otwórz `notebooks/01_et_preprocessing.ipynb`.
 9. **Wybierz jądro (kernel):** kliknij **Select Kernel** w prawym górnym rogu notebooka → **Python Environments…** → **Python 3.10** (`/usr/local/bin/python`).
 10. **Uruchamiaj komórki** po kolei klawiszami **Shift + Enter** albo wszystkie naraz przyciskiem **Run All**.
@@ -33,6 +34,31 @@ Materiały do zajęć praktycznych z analizy danych okulograficznych (*eye-track
 ### Powrót do pracy na kolejnych zajęciach
 
 **Nie twórz za każdym razem nowego codespace'a** – Twoje zmiany zostają w tym, który już masz. Wejdź na [github.com/codespaces](https://github.com/codespaces) i kliknij swój codespace albo ponownie użyj przycisku **Open in GitHub Codespaces** (zaproponuje wznowienie istniejącego środowiska).
+
+### Pobranie nowych materiałów do istniejącego codespace'a
+
+Codespace **nie aktualizuje się sam** – gdy prowadzący doda nowy notebook, trzeba go pobrać. Twoje dotychczasowe zmiany zostaną na miejscu.
+
+1. Otwórz swój codespace.
+2. Otwórz terminal: menu **☰** → **Terminal** → **New Terminal** (albo **Ctrl + `**).
+3. Wpisz i zatwierdź klawiszem Enter:
+
+   ```bash
+   git pull --no-edit
+   ```
+
+4. Nowe pliki pojawią się w panelu plików po lewej (np. `notebooks/06_fourier_i_filtrowanie.ipynb`).
+
+Ten sam efekt da panel **Source Control** (ikona rozgałęzienia po lewej) → **…** → **Pull**.
+
+<details>
+<summary><b>Coś poszło nie tak?</b></summary>
+
+* **Komunikat „Your local changes … would be overwritten by merge”** – zmieniłeś(-aś) plik, który prowadzący też zaktualizował (najczęściej `README.md`). Wpisz `git stash`, potem `git pull --no-edit`, a na koniec `git stash pop`.
+* **Pracujesz na własnym forku** i po `git pull` nadal nie widzisz nowego notebooka – wpisz `git pull --no-edit upstream main`.
+* Jeśli nic nie pomaga, utwórz nowy codespace (pkt 3–5 powyżej). Stary pozostanie na liście na [github.com/codespaces](https://github.com/codespaces), więc nie stracisz swoich rozwiązań.
+
+</details>
 
 ---
 
@@ -69,7 +95,9 @@ Jeśli wolisz pracować w VS Code zainstalowanym na swoim komputerze (szybszy ed
 
 ## 📓 Notebooki
 
-Notebooki najlepiej przerabiać po kolei. Każdy kończy się podsumowaniem, **pięcioma zadaniami powtórkowymi** i literaturą. Zadania nie wprowadzają nowych metod – powtarzają kroki z notebooka – i każde kończy się jednym wynikiem do oddania: liczbą w podanym formacie albo jedną figurą.
+Notebooki 01–05 najlepiej przerabiać po kolei. Każdy kończy się podsumowaniem, **pięcioma zadaniami powtórkowymi** i literaturą. Zadania nie wprowadzają nowych metod – powtarzają kroki z notebooka – i każde kończy się jednym wynikiem do oddania: liczbą w podanym formacie albo jedną figurą.
+
+Notebook 06 jest **niezależny od pozostałych** – można go przerobić w dowolnym momencie, najlepiej przed notebookiem 03. Zamiast pięciu zadań na końcu ma **krótkie ćwiczenia w trakcie** (zwykle wystarczy zmienić jedną liczbę) i trzy zadania na koniec.
 
 | Notebook | Temat | Dane | Czas |
 |---|---|---|---|
@@ -78,6 +106,7 @@ Notebooki najlepiej przerabiać po kolei. Każdy kończy się podsumowaniem, **p
 | [`03_eeg_preprocessing.ipynb`](notebooks/03_eeg_preprocessing.ipynb) | Wstępne przetwarzanie EEG w MNE-Python | `mne.datasets.sample` | ok. 90–120 min |
 | [`04_eeg_erp_i_spektrum.ipynb`](notebooks/04_eeg_erp_i_spektrum.ipynb) | Potencjały wywołane i analiza czas–częstotliwość | `mne.datasets.sample` | ok. 90 min |
 | [`05_laczenie_et_eeg.ipynb`](notebooks/05_laczenie_et_eeg.ipynb) | Łączenie ET i EEG: potencjały wywołane fiksacją (FRP) | symulowane | ok. 90–120 min |
+| [`06_fourier_i_filtrowanie.ipynb`](notebooks/06_fourier_i_filtrowanie.ipynb) | Transformata Fouriera i filtrowanie sygnałów (wprowadzenie) | tworzone w kodzie | ok. 90 min |
 
 **01 · Wstępne przetwarzanie danych ET.** Wczytujemy surowe próbki z eye-trackera (czas, współrzędne X i Y, średnica źrenicy), sprawdzamy jakość nagrania, usuwamy mrugnięcia razem z artefaktami na ich brzegach i interpolujemy brakujące dane. Po wygładzeniu sygnału (filtr Savitzky'ego–Golaya) liczymy prędkość kątową i implementujemy krok po kroku algorytm **I-VT**, który dzieli zapis na fiksacje i sakady. Wynik weryfikujemy główną sekwencją sakad, analizą wrażliwości na próg i porównaniem z „prawdą” z symulacji.
 
@@ -88,6 +117,8 @@ Notebooki najlepiej przerabiać po kolei. Każdy kończy się podsumowaniem, **p
 **04 · ERP i analiza widmowa.** Wycinamy epoki wokół bodźców wzrokowych (`mne.Epochs`), liczymy **potencjały wywołane** i rysujemy je z zacienionym **błędem standardowym**. Mapy topograficzne (`plot_topomap`) pokazują, że wczesne komponenty (P1, N1) są silniejsze nad półkulą przeciwną do pola widzenia, w którym pojawił się bodziec. Na koniec wykonujemy **analizę czas–częstotliwość falkami Morleta** (`tfr_morlet`): moc i spójność fazy między próbami (ITC).
 
 **05 · Łączenie ET i EEG.** Synchronizujemy zegary eye-trackera i wzmacniacza EEG na podstawie wspólnych triggerów (z korektą dryfu zegarów), przenosimy fiksacje i mrugnięcia do zapisu EEG i klasyfikujemy fiksacje jako fiksacje na celu lub na dystraktorze w zadaniu wyszukiwania wzrokowego. Po usunięciu artefaktów ocznych liczymy **potencjały wywołane fiksacją (FRP)**: odpowiedź lambda i P300. Porównujemy cele z dystraktorami (mapy topograficzne, test t, test permutacyjny oparty na klastrach) i omawiamy typowe pułapki analizy FRP.
+
+**06 · Transformata Fouriera i filtrowanie.** Spokojne wprowadzenie bez matematyki i bez danych EEG. Budujemy sygnały z sinusoid, uczymy się czytać **widmo** (położenie piku = częstotliwość, wysokość = amplituda) i szukamy rytmu ukrytego w szumie. Poznajemy **częstotliwość Nyquista** i **aliasing**, a potem cztery rodzaje filtrów: **dolno-, górno-, pasmowoprzepustowy i notch**. Sprawdzamy też, że granica filtra nie jest ostra. Działanie filtrów można usłyszeć na przykładzie dźwięku. Na koniec odczytujemy **tętno z nagrania ze smartwatcha** – z widma i z wykresu w czasie.
 
 > Notebook 04 korzysta z danych oczyszczonych w notebooku 03 (`wyniki/03_sample_eeg_oczyszczone_raw.fif`). Jeśli ich nie ma, użyje wersji zapasowej z zestawu `sample`.
 
@@ -100,7 +131,7 @@ Notebooki najlepiej przerabiać po kolei. Każdy kończy się podsumowaniem, **p
 ├── .devcontainer/
 │   └── devcontainer.json      # konfiguracja środowiska Codespaces (Python 3.10 + pakiety + rozszerzenia)
 ├── dane/                      # dane symulowane (opis kolumn: dane/README.md)
-├── notebooks/                 # 5 notebooków z zajęć
+├── notebooks/                 # 6 notebooków z zajęć
 ├── skrypty/
 │   ├── generuj_dane.py        # generator danych symulowanych (dla prowadzących)
 │   └── pobierz_dane_eeg.py    # pobranie zestawu mne.datasets.sample
@@ -112,6 +143,7 @@ Notebooki najlepiej przerabiać po kolei. Każdy kończy się podsumowaniem, **p
 ## 📊 Dane
 
 * **Dane symulowane** (notebooki 01, 02 i 05) są w katalogu `dane/`. Mają realistyczne właściwości (szum, mrugnięcia, dryf zegarów, artefakty oczne), a ponieważ zostały wygenerowane, znamy „prawdę” i możemy sprawdzić, czy nasze metody ją odtwarzają. Opis plików i kolumn: [`dane/README.md`](dane/README.md).
+* **Notebook 06** nie korzysta z plików – wszystkie sygnały (sinusoidy, szum, dźwięk, nagranie ze smartwatcha) tworzy sam w kodzie.
 * **Zestaw `sample` z MNE-Python** (notebooki 03 i 04) to prawdziwy zapis MEG/EEG ([opis zestawu](https://mne.tools/stable/documentation/datasets.html#sample)). Pobiera się automatycznie do katalogu `~/mne_data` (ok. 1,6 GB do pobrania, ok. 2,7 GB na dysku).
 
 ## 💾 Jak nie stracić swojej pracy?
