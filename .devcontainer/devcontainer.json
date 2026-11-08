@@ -21,7 +21,7 @@
   "updateContentCommand": "pip install --user --no-cache-dir -r requirements.txt",
 
   // Po utworzeniu środowiska: pobranie zestawu danych EEG „sample” z MNE (ok. 1,6 GB).
-  // Działa w tle – w tym czasie można pracować z notebookami 01–02.
+  // Działa w tle – w tym czasie można pracować z notebookami 01, 02 i 06.
   "postCreateCommand": "python skrypty/pobierz_dane_eeg.py",
 
   "customizations": {
